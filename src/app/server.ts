@@ -3,7 +3,7 @@ import * as BodyParser from 'body-parser';
 import * as Express  from 'express';
 import * as Winston from 'winston';
 import * as Morgan from 'morgan';
-import { initRoutes } from 'routes';
+import { apiRouter, publicRouter } from 'routes';
 import { AceGlobal } from './types';
 
 export class Server {
@@ -66,13 +66,13 @@ export class Server {
   
   private setConfig() {
     console.log(`Set up application config`)
-		this.app.use('/', Express.static('./public'));
 		this.app.use(BodyParser.json());
   }
   
   private setRoutes() {
-    console.log(`Set up application router`)
-		initRoutes(this.app);
+		console.log(`Set up application router`)
+		this.app.use('/', publicRouter);
+		this.app.use(`/${this.global.config.api.pathname}/${this.global.config.api.version}`, apiRouter);
   }
 
   private getDateNow(){
