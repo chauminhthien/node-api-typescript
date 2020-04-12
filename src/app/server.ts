@@ -5,23 +5,25 @@ import * as Express  from 'express';
 import * as Winston from 'winston';
 import * as Morgan from 'morgan';
 import { initRoutes } from '../routes';
-
+import { AceGlobal } from './types';
 export class Server {
   public app: Express.Application;
 	public log: any;
   public router: Express.Router;
-  
+	private global: AceGlobal;
+	
   constructor() {
 		this.app = Express();
+		this.global = global;
 		this.setLogger();
 		this.setConfig();
 		this.setRoutes();
   }
   
   public start() {
-		this.app.listen(3000);
-    this.log.info(`Server started at ${3000}`);
-    console.log(`Server started at ${3000}`)
+		this.app.listen(this.global.config.APP_POST || 3000);
+    this.log.info(`Server started at ${this.global.config.APP_POST || 3000}`);
+    console.log(`Server started at ${this.global.config.APP_POST || 3000}`)
   }
 
   private setLogger() {
