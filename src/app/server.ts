@@ -1,11 +1,11 @@
 import * as Path from 'path';
-
 import * as BodyParser from 'body-parser';
 import * as Express  from 'express';
 import * as Winston from 'winston';
 import * as Morgan from 'morgan';
-import { initRoutes } from '../routes';
+import { initRoutes } from 'routes';
 import { AceGlobal } from './types';
+
 export class Server {
   public app: Express.Application;
 	public log: any;

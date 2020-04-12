@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "es6",
@@ -11,8 +12,12 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "sourceMap": false,
-    "outDir": "build"
+    "sourceMap": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "removeComments": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true
   },
   "formatCodeOptions": {
     "indentSize": 2,
@@ -22,6 +27,6 @@
     "**/node_modules",
     "config",
     "models",
-    "test"
+    "test",
   ]
 }

@@ -1,6 +1,6 @@
-import { Server } from './app/server';
+import { Server } from 'app/server';
 
-require('./config')
+require('configs')
 
 const app = new Server;
 app.start();
