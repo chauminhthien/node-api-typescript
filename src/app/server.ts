@@ -5,6 +5,7 @@ import * as Winston from 'winston';
 import * as Morgan from 'morgan';
 import { apiRouter, publicRouter } from 'routes';
 import { AceGlobal } from './types';
+import Database from './database';
 
 export class Server {
   public app: Express.Application;
@@ -18,6 +19,7 @@ export class Server {
 		this.setLogger();
 		this.setConfig();
 		this.setRoutes();
+		this.setLoadDatabase();
   }
   
   public start() {
@@ -73,7 +75,13 @@ export class Server {
 		console.log(`Set up application router`)
 		this.app.use('/', publicRouter);
 		this.app.use(`/${this.global.config.api.pathname}/${this.global.config.api.version}`, apiRouter);
-  }
+	}
+	
+	private setLoadDatabase(){
+		console.log(`load database applicant`)
+		const database = this.global.config.APP_DATABASE.mongodb;
+		if(!!database) new Database(database)
+	}
 
   private getDateNow(){
     const now = new Date();
