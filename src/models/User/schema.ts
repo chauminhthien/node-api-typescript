@@ -11,5 +11,4 @@ const Schema: mongoose.Schema = new mongoose.Schema({
   },
 }, { timestamps: true })
 
-// export default mongoose.model<IApplicant>('users', Schema);
-export default Schema;
+export default mongoose.model<IApplicant>('users', Schema);

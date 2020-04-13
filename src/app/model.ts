@@ -1,13 +1,21 @@
 import toAwait from 'await-to-js';
-import * as mongoose from "mongoose";
 
-class Model {
-  protected schema: mongoose.Schema;
-  protected collection: string;
+class Model{
+  protected model: any;
+
+  constructor(UserModel: any) {
+    this.model = UserModel;
+    return this;
+  }
 
   protected to(query: any): any {
     return toAwait(query)
   }
+
+  TE(error) {
+    throw(error);
+  }
+
 }
 
 export default Model;

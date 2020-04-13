@@ -30,10 +30,7 @@ class Database {
     } catch(e){
       console.log(e)
     }
-    
-
   }
-
 }
 
 export default Database;

@@ -73,8 +73,8 @@ export class Server {
   
   private setRoutes() {
 		console.log(`Set up application router`)
-		this.app.use('/', publicRouter);
 		this.app.use(`/${this.global.config.api.pathname}/${this.global.config.api.version}`, apiRouter);
+		this.app.use('/', publicRouter);
 	}
 	
 	private setLoadDatabase(){
