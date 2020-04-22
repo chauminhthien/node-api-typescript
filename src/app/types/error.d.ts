@@ -1,9 +1,9 @@
-export interface AceError {
-  code?: string;
-  message?: string;
-  debugMessage?: string;
+export interface IError {
+  code: string;
+  message: string;
+  details: Array<any> | string
 }
 
-export interface AceOptionError {
+export interface IOptionError {
   statusCode: number;
 }

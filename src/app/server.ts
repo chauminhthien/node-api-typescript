@@ -5,9 +5,9 @@ import * as Winston from 'winston';
 import * as Morgan from 'morgan';
 import { apiRouter, publicRouter } from 'routes';
 import { AceGlobal } from './types';
-import Database from './database';
+import Database from './Database';
 
-export class Server {
+export default class Server {
   public app: Express.Application;
 	public log: any;
   public router: Express.Router;

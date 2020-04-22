@@ -2,7 +2,7 @@ import { UserModel } from 'models/User';
 import { Response, Request } from "express";
 import { Controller } from 'app';
 
-import { IUserCreateForm } from './model';
+import { IUserCreateForm } from './models';
 
 class UserController extends Controller {
   constructor(){

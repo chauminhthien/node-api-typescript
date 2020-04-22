@@ -1,1 +1,1 @@
-export { default as router} from './src'
+export * from './src'
