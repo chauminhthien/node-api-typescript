@@ -8,7 +8,7 @@ class Controller {
     if(!!modelName) this.model = modelName;
   }
 
-  protected to(query: any): any {
+  public to(query: any): any {
     return toAwait(query)
   }
 
@@ -41,4 +41,4 @@ class Controller {
   
 }
 
-module.exports = Controller
+export default Controller

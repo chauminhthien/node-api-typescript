@@ -1,9 +1,11 @@
-import { Router, Response } from "express";
+import { Router } from "express";
+import UserController from './UserController';
+import { serializersUserCreate } from './serializers';
 
 const router: Router = Router();
 
-router.get('/', function(_, res: Response){
-  res.json({a: 'acacas'})
-})
+router.route('/')
+  .get(UserController.getUser)
+  .post(serializersUserCreate, UserController.createUser)
 
 export default router;
