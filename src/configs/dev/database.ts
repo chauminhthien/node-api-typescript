@@ -5,6 +5,6 @@ export const APP_DATABASE = {
     username : '',
     password : '',
     database : 'testNode',
-    // url      : 'mongodb+srv://chauminhthien:Chauminhthien0212@cluster0-nx4wy.mongodb.net/test?retryWrites=true&w=majority'
+    url      : 'mongodb+srv://chauminhthien:Chauminhthien0212@cluster0-nx4wy.mongodb.net/test?retryWrites=true&w=majority'
   }
 }
