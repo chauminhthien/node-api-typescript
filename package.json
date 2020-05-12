@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development NODE_PATH=src nodemon -e ts -w src -x ts-node src/",
     "lint": "tslint --project tsconfig.json --config tslint.json --format stylish",
     "clear": "del-cli 'build/*' 'logs/*'",
-    "build": "tsc",
+    "build": "GENERATE_SOURCEMAP=false npm run clear && tsc",
     "rebuild": "npm run clear && npm install && tsc",
     "start": "cross-env NODE_ENV=production  NODE_PATH=build node ."
   },

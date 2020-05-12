@@ -2,7 +2,7 @@ import toAwait from 'await-to-js';
 import { IOptionError, IError } from 'app/types';
 import { Response, Request } from 'express';
 
-class Controller {
+export class Controller {
   protected model: any;
   
   constructor(modelName: any) {
@@ -35,5 +35,3 @@ class Controller {
   }
   
 }
-
-export default Controller

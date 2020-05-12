@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-class Database {
+export class Database {
   private config: any;
   private mongoose: any;
   private options = {
@@ -24,6 +24,11 @@ class Database {
     if(this.config.url && this.config.url !== '') url = this.config.url;
     
     try{
+      if (process.env.IS_OFFLINE) {
+        this.mongoose.set("debug", true);
+        console.log("state connection mongoose", this.mongoose.connection.readyState);
+      }
+
       this.mongoose.connect(url, this.options)
       .then(() => console.log('Database connected'))
       .catch(() => console.log('Connect database fail.'))
@@ -32,5 +37,3 @@ class Database {
     }
   }
 }
-
-export default Database;

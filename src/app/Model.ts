@@ -1,6 +1,6 @@
 import toAwait from 'await-to-js';
 
-class Model{
+export class Model{
   protected model: any;
 
   constructor(UserModel: any) {
@@ -17,5 +17,3 @@ class Model{
   }
 
 }
-
-export default Model;

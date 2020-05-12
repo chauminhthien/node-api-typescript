@@ -7,9 +7,9 @@ import * as Cors from 'cors';
 
 import { apiRouter, publicRouter } from 'routes';
 import { AceGlobal } from './types';
-import Database from './Database';
+import { Database } from 'app';
 
-export default class Server {
+export class Server {
   public app: Express.Application;
 	public log: any;
   public router: Express.Router;
@@ -19,6 +19,7 @@ export default class Server {
 		this.app = Express();
 		this.global = global;
 		this.setLogger();
+		this.setMiddleware()
 		this.setConfig();
 		this.setCors()
 		this.setRoutes();
@@ -101,5 +102,39 @@ export default class Server {
   private getDateNow(){
     const now = new Date();
     return `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-  }
+	}
+	
+	private setMiddleware(){
+		console.log(`Set up middleware`);
+		this.app.use(this.handlerLoggerRequest);
+		this.app.use(this.handlerMiddleware);
+	}
+
+	private handlerMiddleware(error: any, _: Express.Request, res: Express.Response, next: Express.NextFunction){
+		if (error) {
+			console.error(error);
+			return res.status(500).json({
+				code: "internal",
+				message: error.message,
+				debugMessage: error.stack
+			});
+		}
+		return next();
+	}
+
+	private handlerLoggerRequest(req: Express.Request, _res: Express.Response, next: Express.NextFunction){
+		console.log("--------------------------- Log request ---------------------------");
+
+		console.log("Url: " + req.url);
+		console.log("Method: " + req.method);
+		console.log("Headers: " + JSON.stringify(req.headers, null, 2));
+		console.log("Payload: " + JSON.stringify({
+			body: req.body,
+			params: req.params,
+			query: req.query
+		}, null, 2));
+
+		console.log("--------------------------- Log request ---------------------------");
+		return next();
+	}
 }
