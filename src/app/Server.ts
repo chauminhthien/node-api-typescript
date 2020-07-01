@@ -6,18 +6,15 @@ import * as Morgan from 'morgan';
 import * as Cors from 'cors';
 
 import { apiRouter, publicRouter } from 'routes';
-import { AceGlobal } from './types';
 import { Database } from 'app';
 
 export class Server {
   public app: Express.Application;
 	public log: any;
   public router: Express.Router;
-	private global: AceGlobal;
 	
   constructor() {
 		this.app = Express();
-		this.global = global;
 		this.setLogger();
 		this.setMiddleware()
 		this.setConfig();
@@ -27,9 +24,9 @@ export class Server {
   }
   
   public start() {
-		this.app.listen(this.global.config.APP_POST || 3000);
-    this.log.info(`Server started at ${this.global.config.APP_POST || 3000}`);
-    console.log(`Server started at ${this.global.config.APP_POST || 3000}`)
+		this.app.listen(process.env.PORT || 3001);
+    this.log.info(`Server started at ${process.env.PORT || 3001}`);
+    console.log(`Server started at ${process.env.PORT || 3001}`)
   }
 
   private setLogger() {
@@ -77,24 +74,23 @@ export class Server {
   
   private setRoutes() {
 		console.log(`Set up application router`)
-		this.app.use(`/${this.global.config.api.pathname}/${this.global.config.api.version}`, apiRouter);
+		console.log(`/${process.env.API_PATH_NAME}/${process.env.API_PATH_VERSION}`)
+		this.app.use(`/${process.env.API_PATH_NAME}/${process.env.API_PATH_VERSION}`, apiRouter);
 		this.app.use('/', publicRouter);
 	}
 	
 	private setLoadDatabase(){
 		console.log(`load database applicant`)
-		const database = this.global.config.APP_DATABASE.mongodb;
-		if(!!database) new Database(database)
+		if(process.env.DB_USED === 'true') new Database()
 	}
 
 	private setCors(){
 		console.log(`set cors applicant`);
-		const cors = this.global.config.APP_CORS;
 		this.app.use(
 			Cors({
-				origin: cors.origin || '*',
-				methods: cors.methods || 'GET,HEAD,PUT,PATCH,POST,DELETE',
-				credentials: cors.credentials ?? true
+				origin:  process.env.APP_CORS_ORIGIN || '*',
+				methods: process.env.APP_CORS_METHOD || 'GET,HEAD,PUT,PATCH,POST,DELETE',
+				credentials: process.env.APP_CORS_CREDENTIALS === 'true'
 			})
 		);
 	}

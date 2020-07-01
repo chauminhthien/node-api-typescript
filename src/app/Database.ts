@@ -1,15 +1,13 @@
 import * as mongoose from "mongoose";
 
 export class Database {
-  private config: any;
   private mongoose: any;
   private options = {
     useNewUrlParser: true, 
     useUnifiedTopology: true
   }
   
-  constructor(config: any){
-    this.config = config;
+  constructor(){
     this.createMongo();
     this.connect();
   }
@@ -20,8 +18,11 @@ export class Database {
   }
 
   private connect(){
-    let url = `mongodb://${ this.config.hostname }:${ this.config.port }/${ this.config.database }`;
-    if(this.config.url && this.config.url !== '') url = this.config.url;
+    let user = `${process.env.DB_USERNAME}`;
+    if(!!user.length) user = `${user}:${process.env.DB_PASS}@`
+    let url = `mongodb://${user}${ process.env.DB_HOST }:${ process.env.DB_PORT }/${ process.env.DB_DATABASE }`;
+    if(process.env.DB_URL && (process.env.DB_URL !== '')) url = process.env.DB_URL;
+    console.log(url)
     
     try{
       if (process.env.IS_OFFLINE) {
